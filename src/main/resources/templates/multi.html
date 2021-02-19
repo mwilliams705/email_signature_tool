@@ -33,6 +33,33 @@
             </form>
         </div>
     </div>
+    <div  class="newsletter-subscribe" th:if="${param.verify}">
+        <div id="verificationTable" class="container">
+            <div class="intro">
+                <h2 class="text-center">Confirm the data is correct.</h2>
+                <p class="text-center">This is your last chance before the emails are sent!</p>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Job Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user:${users}">
+                    <th scope="row" th:text="${user.email}"></th>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.appUserJobTitle}"></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div style="height: 315px;"></div>
     <div class="footer-basic">
         <footer>

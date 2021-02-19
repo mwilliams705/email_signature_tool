@@ -51,6 +51,8 @@ public class FileUploadController {
         return "multi";
     }
 
+
+
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -60,24 +62,28 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
+
+
+
+//    Handles file upload TODO: Change to make list on page visible instead of going to separate page
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
         storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
+        redirectAttributes.addFlashAttribute("user",
                 "Verify " + file.getOriginalFilename() + "'s contents");
 
-        return "redirect:/verify/"+file.getOriginalFilename();
+        return "redirect:/load/"+file.getOriginalFilename();
     }
 
 
 
 
 
-//This is where the upload redirects to view the csv data
-    @GetMapping("/verify/{filename:.+}")
-    public String verifyFileContents(@PathVariable String filename, Model model) throws IOException {
+//This is where the upload redirects to view the csv data and sends emails
+    @GetMapping("/load/{filename:.+}")
+    public String verifyAndSendEmail(@PathVariable String filename, Model model, RedirectAttributes redirectAttributes) throws IOException {
         Resource file = storageService.loadAsResource(filename);
         try(Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))){
             CsvToBean<AppUser> csvToBean = new CsvToBeanBuilder(reader)
@@ -90,22 +96,24 @@ public class FileUploadController {
             List<AppUser> users = csvToBean.parse();
 
 
+//TODO: Move out of this method into new 'send' method
+//            for (AppUser user:
+//                 users) {
+//                System.out.println(user.getFirstName()+" "+user.getLastName()+": "+user.getAppUserJobTitle());
+//                sender.send(user.getEmail(),user.emailSignatureTemplate(),"Your Updated Email Signature");
+//
+//            }
 
-            for (AppUser user:
-                 users) {
-                System.out.println(user.getFirstName()+" "+user.getLastName()+": "+user.getAppUserJobTitle());
-                sender.send(user.getEmail(),user.emailSignatureTemplate(),"Your Updated Email Signature");
+            redirectAttributes.addFlashAttribute("users",
+                    users);
 
-            }
-
-            model.addAttribute("users", users);
             model.addAttribute("status", true);
 
         }catch (Exception ex){
             model.addAttribute("message", "An error occurred while processing the CSV file.");
             model.addAttribute("status", false);
         }
-       return "Verified";
+       return "redirect:/multi?verify";
     }
 
 
