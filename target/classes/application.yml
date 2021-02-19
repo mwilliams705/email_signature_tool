@@ -1,0 +1,51 @@
+server:
+  port: 705
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+#  datasource:
+#    password: ******ADD DB password here when needed
+#    #    for postgres uncomment url below
+#    #    url: jdbc:postgresql://localhost:5432/emailSignatureManager
+#    #    for mysql uncomment url below
+#    url: jdbc:mysql://localhost:3306/emailSignatureManager
+#    #
+#    #    for mysql use root
+#    #    for postgres use postgres
+#    username: root
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+#        #        mysql use org.hibernate.dialect.MySQL5Dialect
+#        #        postgres use org.hibernate.dialect.PostgreSQLDialect
+#        dialect: org.hibernate.dialect.MySQL8Dialect
+#        #        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        format_sql: true
+#      show-sql: true
+  mail:
+        host: localhost
+        port: 1025
+        username: hello
+        password: hello
+
+        properties:
+          mail:
+            smtp:
+              socketFactory:
+                fallback: true
+              ssl:
+                trust: "*"
+              auth: true
+              starttls:
+                enable: true
+              connectiontimeout: 15000
+              timeout: 10000
+              writetimeout: 5000
+
+
+
