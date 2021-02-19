@@ -10,7 +10,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+//@Entity
 @ToString
 public class AppUser {
 
@@ -26,30 +26,18 @@ public class AppUser {
     private String email;
     @CsvBindByName
     private String appUserJobTitle;
+    private Signature signature;
 
-    public String getFirstName(){return firstName;}
-
-    public String getLastName() {
-        return lastName;
+    public AppUser(String firstName, String lastName, String email, String appUserJobTitle) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.appUserJobTitle = appUserJobTitle;
     }
 
-    public String emailSignature(){
-        return
-                "<table>\n" +
-                "    <tr>\n" +
-                "    <td style=\"padding-right: 12px\">\n" +
-                "    <img style=\"float: left\" src=\"https://dl.dropboxusercontent.com/s/6xmiim6gs56b6bl/hlaw-email-sig.png\" alt=\"HawkLaw Logo\"></td>\n" +
-                "    <td><div id=\"sig\" style=\"min-height: 50px; line-height: 15px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; color: #000000; min-width: 530px;\">\n" +
-                "    <strong style=\"color: #000000\">"+firstName+" "+lastName+"</strong></br>\n" +
-                "    "+appUserJobTitle+", HawkLaw, PA</br>\n" +
-                "    <font color=\"#808080\">888.429.5529 <font color=\"#009749\">|</font> www.Hawk.Law <font color=\"#009749\">|</font></br>\n" +
-                "    PO Box 5048 Spartanburg, SC 29304</font></div></td>\n" +
-                "    </tr>\n" +
-                "    </table>\n"
-                ;
-    }
 
-    public String emailSignatureTemplate(){
+    public String emailSignatureTemplate(Signature signature){
+        this.signature = signature;
         return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
                 "<html xmlns:v=\"urn:schemas-microsoft-com:vml\">\n" +
                 "\n" +
@@ -286,7 +274,7 @@ public class AppUser {
                 "                                                        <div align=\"center\" class=\"jsd-message-content\" style=\"line-height: 24px\" >\n" +
                 "                                                            \n"
                 +
-                 emailSignature()
+                 signature.emailSignature(firstName,lastName,appUserJobTitle)
                 +
                 "                                                           \n" +
                 "                                                        </div>\n" +

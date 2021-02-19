@@ -22,14 +22,47 @@
         </div>
     </nav>
     <div class="text-warning contact-clean" style="background: rgb(255,255,255);">
-        <form method="post" style="background: var(--light);">
+
+
+        <form method="post" th:action="@{/createSingle}" th:object="${appUser}" style="background: var(--light);">
             <h2 class="text-center" style="color: var(--dark);">Send a signature</h2>
-            <div class="form-group"><input class="form-control" type="text" name="firstName" placeholder="First Name"></div>
-            <div class="form-group"><input class="form-control" type="text" name="lastName" placeholder="Last Name"></div>
-            <div class="form-group"><input class="form-control" type="text" name="email" placeholder="Email"></div>
-            <div class="form-group"><input class="form-control" type="text" name="appUserJobTitle" placeholder="Job Title"></div>
+            <div  class="form-group form-row"  th:if="${param.success}">
+                <div class="col-sm-3 label-column "></div>
+                <div class="alert alert-success col-sm-6 input-column" > Email Signature Sent! </div>
+            </div>
+            <div  class="form-group form-row"  th:if="${param.taken}">
+                <div class="col-sm-3 label-column "></div>
+                <div class="alert alert-warning col-sm-6 input-column" > Email Already Taken! </div>
+            </div>
+            <div class="form-group"><input class="form-control" type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First Name"></div>
+            <div class="form-group"><input class="form-control" type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name"></div>
+            <div class="form-group"><input class="form-control" type="text" name="email" id="email" th:field="*{email}" placeholder="Email"></div>
+            <div class="form-group"><input class="form-control" type="text" name="appUserJobTitle" id="appUserJobTitle" th:field="*{appUserJobTitle}" placeholder="Job Title"></div>
             <div class="form-group"><button class="btn btn-primary" type="submit">send </button></div>
         </form>
+
+
+
+
+<!--        <form method="post" action="/createSingle" style="background: var(&#45;&#45;light);">-->
+<!--            <h2 class="text-center" style="color: var(&#45;&#45;dark);">Send a signature</h2>-->
+<!--            <div  class="form-group form-row"  th:if="${param.success}">-->
+<!--                <div class="col-sm-3 label-column "></div>-->
+<!--                <div class="alert alert-warning col-sm-6 input-column" > Check your email! </div>-->
+<!--            </div>-->
+<!--            <div  class="form-group form-row"  th:if="${param.taken}">-->
+<!--                <div class="col-sm-3 label-column "></div>-->
+<!--                <div class="alert alert-warning col-sm-6 input-column" > Email Already Taken! </div>-->
+<!--            </div>-->
+<!--            <div class="form-group"><input class="form-control" type="text" name="firstName" placeholder="First Name"></div>-->
+<!--            <div class="form-group"><input class="form-control" type="text" name="lastName" placeholder="Last Name"></div>-->
+<!--            <div class="form-group"><input class="form-control" type="text" name="email" placeholder="Email"></div>-->
+<!--            <div class="form-group"><input class="form-control" type="text" name="appUserJobTitle" id="appUserJobTitle" placeholder="Job Title"></div>-->
+<!--            <div class="form-group"><button class="btn btn-primary" type="submit">send </button></div>-->
+<!--        </form>-->
+<!--        -->
+
+
     </div>
     <div class="footer-basic">
         <footer>

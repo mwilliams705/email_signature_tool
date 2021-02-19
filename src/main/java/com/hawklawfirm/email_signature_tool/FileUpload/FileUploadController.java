@@ -1,6 +1,7 @@
 package com.hawklawfirm.email_signature_tool.FileUpload;
 
 import com.hawklawfirm.email_signature_tool.AppUser.AppUser;
+import com.hawklawfirm.email_signature_tool.AppUser.Signature;
 import com.hawklawfirm.email_signature_tool.email.EmailSender;
 import com.hawklawfirm.email_signature_tool.storage.StorageService;
 import com.opencsv.bean.CsvToBean;
@@ -36,9 +37,37 @@ public class FileUploadController {
     }
 
     @GetMapping("/")
-    public String singleSignature(){
+    public String singleSignature(Model model){
+        AppUser appUser = new AppUser();
+        model.addAttribute("appUser", appUser);
         return "index";
     }
+
+
+    @PostMapping(path = "/createSingle")
+    public String createSingle(
+            @RequestParam(name = "firstName") String firstName,
+            @RequestParam(name = "lastName") String lastName,
+            @RequestParam(name = "email") String email,
+            @RequestParam(name = "appUserJobTitle") String appUserJobTitle
+            ){
+        AppUser user = new AppUser(firstName,lastName,email,appUserJobTitle);
+
+        sender.send(user.getEmail(),user.emailSignatureTemplate(
+                new Signature(
+                        "https://dl.dropboxusercontent.com/s/6xmiim6gs56b6bl/hlaw-email-sig.png",
+                        "HawkLaw ,PA",
+                        "888.429.5529",
+                        "www.Hawk.Law",
+                        "PO Box 5048",
+                        "Spartanburg",
+                        "SC",
+                        "29304"
+                )
+        ),"Here's your new email signature");
+        return "redirect:/?success";
+    }
+
 
     @GetMapping("/multi")
     public String listUploadedFiles(Model model) throws IOException {
@@ -66,7 +95,7 @@ public class FileUploadController {
 
 
 //    Handles file upload TODO: Change to make list on page visible instead of going to separate page
-    @PostMapping("/")
+    @PostMapping(path = "/loadcsv")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
@@ -83,7 +112,7 @@ public class FileUploadController {
 
 //This is where the upload redirects to view the csv data and sends emails
     @GetMapping("/load/{filename:.+}")
-    public String verifyAndSendEmail(@PathVariable String filename, Model model, RedirectAttributes redirectAttributes) throws IOException {
+    public String verifyEmail(@PathVariable String filename, Model model, RedirectAttributes redirectAttributes) throws IOException {
         Resource file = storageService.loadAsResource(filename);
         try(Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))){
             CsvToBean<AppUser> csvToBean = new CsvToBeanBuilder(reader)
@@ -97,24 +126,39 @@ public class FileUploadController {
 
 
 //TODO: Move out of this method into new 'send' method
-//            for (AppUser user:
-//                 users) {
-//                System.out.println(user.getFirstName()+" "+user.getLastName()+": "+user.getAppUserJobTitle());
-//                sender.send(user.getEmail(),user.emailSignatureTemplate(),"Your Updated Email Signature");
-//
-//            }
+            for (AppUser user:
+                 users) {
+                System.out.println(user.getFirstName()+" "+user.getLastName()+": "+user.getAppUserJobTitle());
+                sender.send(user.getEmail(),user.emailSignatureTemplate(
+                        new Signature(
+                                "https://dl.dropboxusercontent.com/s/6xmiim6gs56b6bl/hlaw-email-sig.png",
+                                "HawkLaw ,PA",
+                                "888.429.5529",
+                                "www.Hawk.Law",
+                                "PO Box 5048",
+                                "PansyTown",
+                                "SC",
+                                "29304"
+                        )
+                ),"Your Updated Email Signature");
+
+            }
 
             redirectAttributes.addFlashAttribute("users",
                     users);
 
+            redirectAttributes.addFlashAttribute("file",file);
             model.addAttribute("status", true);
 
         }catch (Exception ex){
             model.addAttribute("message", "An error occurred while processing the CSV file.");
             model.addAttribute("status", false);
+            return "redirect:/multi?fail";
         }
        return "redirect:/multi?verify";
     }
+
+
 
 
 
