@@ -17,7 +17,7 @@
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item"><a class="nav-link" href="/single">Single</a></li>
                     <li class="nav-item"><a class="nav-link" href="/multi">Multi</a></li>
-                    <li class="nav-item"><a class="nav-link" style="color: deeppink" href="/edit">Edit Your Signature Details</a></li>
+                    <li class="nav-item"><a class="nav-link" style="color: coral;" href="/edit">Edit Your Signature Details</a></li>
 
                 </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="#" style="background: var(--dark);">Ask For Help..</a></span>
             </div>
@@ -47,7 +47,8 @@
             <div class="form-group"><input class="form-control" type="text" name="Zipcode" id="Zipcode" th:field="*{Zipcode}" placeholder="Zipcode"></div>
             <div class="form-group"><input class="form-control" type="text" name="AccentColor" id="AccentColor" th:field="*{AccentColor}" placeholder="#009749"></div>
 
-            <div class="form-group"><button class="btn btn-primary" type="submit">create</button></div>
+            <div class="form-group"><button style="color: #1f2021;background: rgb(252,91,134);
+                                                    background: linear-gradient(90deg, rgba(252,91,134,1) 0%, rgba(255,234,16,1) 100%);" class="btn btn-primary" type="submit">create</button></div>
             <div  class="form-group form-row"  th:if="${param.success}">
                 <div class="col-sm-3 label-column "></div>
             <div id="signature">
@@ -76,7 +77,7 @@
     </div>
     <div class="footer-basic">
         <footer>
-            <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
+            <div class="social"><a href="https://github.com/mwilliams705"><i class="icon ion-social-github"></i></a><a href="https://www.linkedin.com/in/michael-williams-a81531ab/"><i class="icon ion-social-linkedin"></i></a><a href="https://twitter.com/_WiFiWhisperer"><i class="icon ion-social-twitter"></i></a></div>
             <p class="copyright">mwdesigns © 2021</p>
         </footer>
     </div>
