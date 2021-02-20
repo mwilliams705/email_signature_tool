@@ -29,14 +29,29 @@ public class FileUploadController {
 
     private final EmailSender sender;
     private final StorageService storageService;
+    private Signature signature;
+
+    private static final String HAWK_LOGO = "https://dl.dropboxusercontent.com/s/6xmiim6gs56b6bl/hlaw-email-sig.png";
 
     @Autowired
     public FileUploadController(StorageService storageService, EmailSender sender) {
         this.storageService = storageService;
         this.sender = sender;
+        this.signature = new Signature(
+                HAWK_LOGO,
+                "HawkLaw ,PA",
+                "888.429.5529",
+                "www.Hawk.Law",
+                "PO Box 5048",
+                "Spartanburg",
+                "SC",
+                "29304",
+                "#ff0000"
+        );
+//                HawkLaw logo color #009749
     }
 
-    @GetMapping("/")
+    @GetMapping("/single")
     public String singleSignature(Model model){
         AppUser appUser = new AppUser();
         model.addAttribute("appUser", appUser);
@@ -44,6 +59,7 @@ public class FileUploadController {
     }
 
 
+//    This is the single user form action
     @PostMapping(path = "/createSingle")
     public String createSingle(
             @RequestParam(name = "firstName") String firstName,
@@ -54,20 +70,10 @@ public class FileUploadController {
         AppUser user = new AppUser(firstName,lastName,email,appUserJobTitle);
 
         sender.send(user.getEmail(),user.emailSignatureTemplate(
-                new Signature(
-                        "https://dl.dropboxusercontent.com/s/6xmiim6gs56b6bl/hlaw-email-sig.png",
-                        "HawkLaw ,PA",
-                        "888.429.5529",
-                        "www.Hawk.Law",
-                        "PO Box 5048",
-                        "Spartanburg",
-                        "SC",
-                        "29304"
-                )
+                signature
         ),"Here's your new email signature");
-        return "redirect:/?success";
+        return "redirect:/single?success";
     }
-
 
     @GetMapping("/multi")
     public String listUploadedFiles(Model model) throws IOException {
@@ -78,6 +84,34 @@ public class FileUploadController {
                 .collect(Collectors.toList()));
 
         return "multi";
+    }
+
+
+    @GetMapping(path = "/edit")
+    public String editSignatureBaseInformation(Model model){
+        Signature signature = new Signature();
+        model.addAttribute("signature", signature);
+        return "edit";
+    }
+
+    @PostMapping(path = "/createSignature")
+    public String submitEditedSignature(
+            @RequestParam(name = "LogoUrl") String LogoUrl,
+            @RequestParam(name = "CompanyName") String CompanyName,
+            @RequestParam(name = "PhoneNumber") String PhoneNumber,
+            @RequestParam(name = "WebAddress") String WebAddress,
+            @RequestParam(name = "Address") String Address,
+            @RequestParam(name = "City") String City,
+            @RequestParam(name = "State") String State,
+            @RequestParam(name = "Zipcode") String Zipcode,
+            @RequestParam(name = "AccentColor") String AccentColor,
+            RedirectAttributes redirectAttributes
+    ){
+
+        signature = new Signature(LogoUrl,CompanyName,PhoneNumber,WebAddress,Address,City,State,Zipcode,AccentColor);
+        redirectAttributes.addFlashAttribute("signature", signature);
+        return "redirect:/single?signature_creation_success";
+
     }
 
 
@@ -138,7 +172,8 @@ public class FileUploadController {
                                 "PO Box 5048",
                                 "PansyTown",
                                 "SC",
-                                "29304"
+                                "29304",
+                                "#009749"
                         )
                 ),"Your Updated Email Signature");
 
