@@ -43,15 +43,16 @@ public class Signature {
 
     public String chooseEmailSignature(String firstName, String lastName, String jobTitle){
         if (AddressOne.equals("")){
-            if (AddressTwo.equals("")){
-                return emailSignatureOneAddressLine(firstName, lastName, jobTitle);
-            }
             AddressOne = AddressTwo;
+            AddressTwo = "";
             return emailSignatureOneAddressLine(firstName, lastName, jobTitle);
         }
+
         if(AddressTwo.equals("")){
             return emailSignatureOneAddressLine(firstName, lastName, jobTitle);
-        }else  return emailSignatureTwoAddressLines(firstName, lastName, jobTitle);
+        }else
+            return emailSignatureTwoAddressLines(firstName, lastName, jobTitle);
+
     }
 
     public String emailSignatureOneAddressLine(String firstName, String lastName, String jobTitle){
@@ -60,7 +61,7 @@ public class Signature {
                         "    <tr>\n" +
                         "    <td style=\"padding-right: 12px\">\n" +
                         "    <img style=\"float: left; display: block;\n" +
-                        "  max-width:70px;\n" +
+                        "  max-width:auto;\n" +
                         "  max-height:70px;\n" +
                         "  width: auto;\n" +
                         "  height: auto;\" src=\""+getLogoUrl()+"\" alt=\"Company Logo\"></td>\n" +
@@ -79,7 +80,7 @@ public class Signature {
                         "    <tr>\n" +
                         "    <td style=\"padding-right: 12px\">\n" +
                         "    <img style=\"float: left; display: block;\n" +
-                        "  max-width:70px;\n" +
+                        "  max-width:auto;\n" +
                         "  max-height:70px;\n" +
                         "  width: auto;\n" +
                         "  height: auto;\" src=\""+getLogoUrl()+"\" alt=\"Company Logo\"></td>\n" +

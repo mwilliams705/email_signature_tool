@@ -180,20 +180,7 @@ public class FileUploadController {
             for (AppUser user:
                  users) {
                 System.out.println(user.getFirstName()+" "+user.getLastName()+": "+user.getAppUserJobTitle());
-                sender.send(user.getEmail(),user.emailSignatureTemplate(
-                        new Signature(
-                                "https://dl.dropboxusercontent.com/s/6xmiim6gs56b6bl/hlaw-email-sig.png",
-                                "HawkLaw ,PA",
-                                "888.429.5529",
-                                "www.Hawk.Law",
-                                "",
-                                "PO Box 5048",
-                                "Spartanburg",
-                                "SC",
-                                "29304",
-                                "#009749"
-                        )
-                ),"Your Updated Email Signature");
+                sender.send(user.getEmail(),user.emailSignatureTemplate(signature),"Your Updated Email Signature");
 
             }
 
