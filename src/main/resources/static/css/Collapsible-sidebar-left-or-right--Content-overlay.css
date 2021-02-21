@@ -1,9 +1,9 @@
 #sidebar {
   background: #1295a7;
-  width: 260px;
+  width: 420px;
   position: fixed;
   top: 0;
-  left: -260px;
+  left: -420px;
   height: 100vh;
   z-index: 999;
   color: #fff;
@@ -17,7 +17,8 @@
 
 #sidebar.sidebar-right {
   left: auto;
-  right: -260px;
+  right: -420px;
+
 }
 
 #sidebar.sidebar-right.active {
@@ -74,7 +75,7 @@
 }
 
 #sidebar > *:not(.sidebar-header):not(ul):not(.full-width) {
-  max-width: 230px;
+  max-width: 400px;
   margin-left: 15px;
 }
 

@@ -42,6 +42,7 @@ public class FileUploadController {
                 "HawkLaw ,PA",
                 "888.429.5529",
                 "www.Hawk.Law",
+                "",
                 "PO Box 5048",
                 "Spartanburg",
                 "SC",
@@ -53,9 +54,11 @@ public class FileUploadController {
 
     @GetMapping("/single")
     public String singleSignature(Model model){
+        Signature signature = new Signature();
+        model.addAttribute("signature", signature);
         AppUser appUser = new AppUser();
         model.addAttribute("appUser", appUser);
-        return "single";
+        return "single_w_sidebar";
     }
 
 
@@ -78,30 +81,24 @@ public class FileUploadController {
 
     @GetMapping("/multi")
     public String listUploadedFiles(Model model) throws IOException {
-
+        Signature signature = new Signature();
+        model.addAttribute("signature", signature);
         model.addAttribute("files", storageService.loadAll().map(
                 path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                         "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList()));
 
-        return "multi";
+        return "multi_w_sidebar";
     }
 
-
-    @GetMapping(path = "/edit")
-    public String editSignatureBaseInformation(Model model){
-        Signature signature = new Signature();
-        model.addAttribute("signature", signature);
-        return "edit";
-    }
-
-    @PostMapping(path = "/createSignature")
-    public String submitEditedSignature(
+    @PostMapping(path = "/createSignatureOnSingle")
+    public String submitEditedSignature_OnSingle(
             @RequestParam(name = "LogoUrl") String LogoUrl,
             @RequestParam(name = "CompanyName") String CompanyName,
             @RequestParam(name = "PhoneNumber") String PhoneNumber,
             @RequestParam(name = "WebAddress") String WebAddress,
-            @RequestParam(name = "Address") String Address,
+            @RequestParam(name = "AddressOne") String AddressOne,
+            @RequestParam(name = "AddressTwo") String AddressTwo,
             @RequestParam(name = "City") String City,
             @RequestParam(name = "State") String State,
             @RequestParam(name = "Zipcode") String Zipcode,
@@ -109,13 +106,32 @@ public class FileUploadController {
             RedirectAttributes redirectAttributes
     ){
 
-        signature = new Signature(LogoUrl,CompanyName,PhoneNumber,WebAddress,Address,City,State,Zipcode,AccentColor);
+        signature = new Signature(LogoUrl,CompanyName,PhoneNumber,WebAddress,AddressOne,AddressTwo,City,State,Zipcode,AccentColor);
         redirectAttributes.addFlashAttribute("signature", signature);
         return "redirect:/single?signature_creation_success";
 
     }
 
+    @PostMapping(path = "/createSignatureOnMulti")
+    public String submitEditedSignature_OnMulti(
+            @RequestParam(name = "LogoUrl") String LogoUrl,
+            @RequestParam(name = "CompanyName") String CompanyName,
+            @RequestParam(name = "PhoneNumber") String PhoneNumber,
+            @RequestParam(name = "WebAddress") String WebAddress,
+            @RequestParam(name = "AddressOne") String AddressOne,
+            @RequestParam(name = "AddressTwo") String AddressTwo,
+            @RequestParam(name = "City") String City,
+            @RequestParam(name = "State") String State,
+            @RequestParam(name = "Zipcode") String Zipcode,
+            @RequestParam(name = "AccentColor") String AccentColor,
+            RedirectAttributes redirectAttributes
+    ){
 
+        signature = new Signature(LogoUrl,CompanyName,PhoneNumber,WebAddress,AddressOne,AddressTwo,City,State,Zipcode,AccentColor);
+        redirectAttributes.addFlashAttribute("signature", signature);
+        return "redirect:/multi?signature_creation_success";
+
+    }
 
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
@@ -129,7 +145,7 @@ public class FileUploadController {
 
 
 
-//    Handles file upload TODO: Change to make list on page visible instead of going to separate page
+//    Handles file upload
     @PostMapping(path = "/loadcsv")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
@@ -170,8 +186,9 @@ public class FileUploadController {
                                 "HawkLaw ,PA",
                                 "888.429.5529",
                                 "www.Hawk.Law",
+                                "",
                                 "PO Box 5048",
-                                "PansyTown",
+                                "Spartanburg",
                                 "SC",
                                 "29304",
                                 "#009749"

@@ -274,7 +274,7 @@ public class AppUser {
                 "                                                        <div align=\"center\" class=\"jsd-message-content\" style=\"line-height: 24px\" >\n" +
                 "                                                            \n"
                 +
-                 signature.emailSignature(firstName,lastName,appUserJobTitle)
+                 signature.chooseEmailSignature(firstName,lastName,appUserJobTitle)
                 +
                 "                                                           \n" +
                 "                                                        </div>\n" +

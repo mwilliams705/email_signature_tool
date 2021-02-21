@@ -11,55 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
-        <div class="container"><a class="navbar-brand" href="#">email_signature_tool</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="nav navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="/single">Single</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/multi">Multi</a></li>
-                    <li class="nav-item"><a class="nav-link" style="color: deeppink" href="/edit">Edit Your Signature Details</a></li>
 
-                </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="#" style="background: var(--dark);">Ask For Help..</a></span>
-            </div>
-        </div>
-    </nav>
-    <div class="text-warning contact-clean" style="background: rgb(255,255,255);">
-
-
-        <form method="post" th:action="@{/createSingle}" th:object="${appUser}" style="background: var(--light);">
-            <h2 class="text-center" style="color: var(--dark);">Send a signature</h2>
-            <div  class="form-group form-row"  th:if="${param.success}">
-                <div class="col-sm-3 label-column "></div>
-                <div class="alert alert-success col-sm-6 input-column" > Email Signature Sent! </div>
-            </div>
-            <div  class="form-group form-row"  th:if="${param.taken}">
-                <div class="col-sm-3 label-column "></div>
-                <div class="alert alert-warning col-sm-6 input-column" > Email Already Taken! </div>
-            </div>
-            <div  class="form-group form-row"  th:if="${param.signature_creation_success}">
-                <div class="col-sm-3 label-column "></div>
-                <div class="alert alert-success col-sm-6 input-column" > Signature Updated. </div>
-            </div>
-            <div class="form-group"><input class="form-control" type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First Name"></div>
-            <div class="form-group"><input class="form-control" type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name"></div>
-            <div class="form-group"><input class="form-control" type="text" name="email" id="email" th:field="*{email}" placeholder="Email"></div>
-            <div class="form-group"><input class="form-control" type="text" name="appUserJobTitle" id="appUserJobTitle" th:field="*{appUserJobTitle}" placeholder="Job Title"></div>
-            <div class="form-group"><button class="btn btn-primary" type="submit" style="color: #e8e8e8;background: deeppink;
-                                                    background: linear-gradient(90deg, deeppink 0%, coral 100%);">send</button></div>
-        </form>
-
-
-
-
-
-
-    </div>
-    <div class="footer-basic">
-        <footer>
-            <div class="social"><a href="https://github.com/mwilliams705"><i class="icon ion-social-github"></i></a><a href="https://www.linkedin.com/in/michael-williams-a81531ab/"><i class="icon ion-social-linkedin"></i></a><a href="https://twitter.com/_WiFiWhisperer"><i class="icon ion-social-twitter"></i></a></div>
-            <p class="copyright">mwdesigns © 2021</p>
-        </footer>
-    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
 </body>

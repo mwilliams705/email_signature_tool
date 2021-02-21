@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="../static/css/Collapsible-sidebar-left-or-right--Content-overlay.css" th:href="@{/css/Collapsible-sidebar-left-or-right--Content-overlay.css}">
+    <link rel="stylesheet" href="../static/css/styles.min.css" th:href="@{/css/styles.min.css}">
+</head>
+
+<body>
+<div>
+    <div class="overlay"></div>
+    <div id="sidebar" class="sidebar-right" style="background: #191919;">
+        <div class="sidebar-header" style="background: linear-gradient(69deg, deeppink, coral);">
+            <div id="close-sidebar"><i class="fa fa-chevron-left"></i></div>
+            <h2>Edit</h2>
+        </div>
+        <hr>
+        <p>Edit the values of your signature here. Make sure the logo image is 70px in height and width.&nbsp;</p>
+        <hr>
+        <form method="post" th:action="@{/createSignatureOnSingle}" th:object="${signature}">
+
+            <div class="form-group"><input class="form-control" type="text" name="LogoUrl" id="LogoUrl" th:field="*{LogoUrl}" placeholder="Logo URL (70x70)"> </div>
+            <div class="form-group"><input class="form-control" type="text" name="CompanyName" id="CompanyName" th:field="*{CompanyName}" placeholder="Company Name"></div>
+            <div class="form-group"><input class="form-control" type="text" name="PhoneNumber" id="PhoneNumber" th:field="*{PhoneNumber}" placeholder="Phone Number"></div>
+            <div class="form-group"><input class="form-control" type="text" name="WebAddress" id="WebAddress" th:field="*{WebAddress}" placeholder="Web Address"></div>
+            <div class="form-group"><input class="form-control" type="text" name="AddressOne" id="AddressOne" th:field="*{AddressOne}" placeholder="Address 1"></div>
+            <div class="form-group"><input class="form-control" type="text" name="AddressTwo" id="AddressTwo" th:field="*{AddressTwo}" placeholder="Address 2"></div>
+            <div class="form-group"><input class="form-control" type="text" name="City" id="City" th:field="*{City}" placeholder="City"></div>
+            <div class="form-group"><input class="form-control" type="text" name="State" id="State" th:field="*{State}" placeholder="State"></div>
+            <div class="form-group"><input class="form-control" type="text" name="Zipcode" id="Zipcode" th:field="*{Zipcode}" placeholder="Zipcode"></div>
+            <div class="form-group"><input class="form-control" type="text" name="AccentColor" id="AccentColor" th:field="*{AccentColor}" placeholder="Accent Color (#009749)"></div>
+            <button class="btn btn-light btn-block" type="submit" style="background: linear-gradient(29deg, deeppink, coral);border-style: none;font-size: 20px;color: var(--light);">Finish</button>
+
+        </form>
+        <hr>
+    </div>
+    <div id="content">
+        <div class="container">
+
+            <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+                <div class="container"><a class="navbar-brand" href="#">email_signature_tool</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="nav navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/single">Single</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/multi">Multi</a></li>
+                            <li class="nav-item"><a class="nav-link open-sidebar" style="color: deeppink">Edit Your Signature Details</a></li>
+
+                        </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="#" style="background: var(--dark);">Ask For Help..</a></span>
+                    </div>
+                </div>
+            </nav>
+            <div class="text-warning contact-clean" style="background: rgb(255,255,255);">
+
+
+                <form method="post" th:action="@{/createSingle}" th:object="${appUser}" style="background: var(--light);">
+                    <h2 class="text-center" style="color: var(--dark);">Send a signature</h2>
+                    <div  class="form-group form-row"  th:if="${param.success}">
+                        <div class="col-sm-3 label-column "></div>
+                        <div class="alert alert-success col-sm-6 input-column" > Email Signature Sent! </div>
+                    </div>
+                    <div  class="form-group form-row"  th:if="${param.taken}">
+                        <div class="col-sm-3 label-column "></div>
+                        <div class="alert alert-warning col-sm-6 input-column" > Email Already Taken! </div>
+                    </div>
+                    <div  class="form-group form-row"  th:if="${param.signature_creation_success}">
+                        <div class="col-sm-3 label-column "></div>
+                        <div class="alert alert-success col-sm-6 input-column" >
+
+                            Signature Updated.
+                        </div>
+
+                    </div>
+                    <div class="form-group"><input class="form-control" type="text" name="firstName" id="firstName" th:field="*{firstName}" placeholder="First Name"></div>
+                    <div class="form-group"><input class="form-control" type="text" name="lastName" id="lastName" th:field="*{lastName}" placeholder="Last Name"></div>
+                    <div class="form-group"><input class="form-control" type="text" name="email" id="email" th:field="*{email}" placeholder="Email"></div>
+                    <div class="form-group"><input class="form-control" type="text" name="appUserJobTitle" id="appUserJobTitle" th:field="*{appUserJobTitle}" placeholder="Job Title"></div>
+                    <div class="form-group"><button class="btn btn-primary" type="submit" style="color: #e8e8e8;background: deeppink;
+                                                    background: linear-gradient(90deg, deeppink 0%, coral 100%);">send</button></div>
+                </form>
+            </div>
+            <div class="footer-basic">
+                <footer>
+                    <div class="social"><a href="https://github.com/mwilliams705"><i class="icon ion-social-github"></i></a><a href="https://www.linkedin.com/in/michael-williams-a81531ab/"><i class="icon ion-social-linkedin"></i></a><a href="https://twitter.com/_WiFiWhisperer"><i class="icon ion-social-twitter"></i></a></div>
+                    <p class="copyright">mwdesigns © 2021</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+<script src="../static/js/Collapsible-sidebar-left-or-right--Content-overlay.js" th:src="@{/js/Collapsible-sidebar-left-or-right--Content-overlay.js}"></script>
+</body>
+
+</html>
