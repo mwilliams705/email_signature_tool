@@ -37,7 +37,7 @@
                 <div class="alert alert-warning col-sm-6 input-column" > Something went wrong.. </div>
             </div>
             <p>https://dl.dropboxusercontent.com/s/6xmiim6gs56b6bl/hlaw-email-sig.png</p>
-            <div class="form-group"><input class="form-control" type="text" name="LogoUrl" id="LogoUrl" th:field="*{LogoUrl}" placeholder="Logo URL"></div>
+            <div class="form-group"><input class="form-control" type="text" name="LogoUrl" id="LogoUrl" th:field="*{LogoUrl}" placeholder="Logo URL (70x70)"> </div>
             <div class="form-group"><input class="form-control" type="text" name="CompanyName" id="CompanyName" th:field="*{CompanyName}" placeholder="Company Name"></div>
             <div class="form-group"><input class="form-control" type="text" name="PhoneNumber" id="PhoneNumber" th:field="*{PhoneNumber}" placeholder="Phone Number"></div>
             <div class="form-group"><input class="form-control" type="text" name="WebAddress" id="WebAddress" th:field="*{WebAddress}" placeholder="Web Address"></div>
@@ -45,10 +45,10 @@
             <div class="form-group"><input class="form-control" type="text" name="City" id="City" th:field="*{City}" placeholder="City"></div>
             <div class="form-group"><input class="form-control" type="text" name="State" id="State" th:field="*{State}" placeholder="State"></div>
             <div class="form-group"><input class="form-control" type="text" name="Zipcode" id="Zipcode" th:field="*{Zipcode}" placeholder="Zipcode"></div>
-            <div class="form-group"><input class="form-control" type="text" name="AccentColor" id="AccentColor" th:field="*{AccentColor}" placeholder="#009749"></div>
+            <div class="form-group"><input class="form-control" type="text" name="AccentColor" id="AccentColor" th:field="*{AccentColor}" placeholder="Accent Color (#009749)"></div>
 
-            <div class="form-group"><button style="color: #1f2021;background: rgb(252,91,134);
-                                                    background: linear-gradient(90deg, rgba(252,91,134,1) 0%, rgba(255,234,16,1) 100%);" class="btn btn-primary" type="submit">create</button></div>
+            <div class="form-group"><button class="btn btn-primary" type="submit" style="color: #e8e8e8;background: deeppink;
+                                                    background: linear-gradient(90deg, deeppink 0%, coral 100%);">create</button></div>
             <div  class="form-group form-row"  th:if="${param.success}">
                 <div class="col-sm-3 label-column "></div>
             <div id="signature">

@@ -55,7 +55,7 @@ public class FileUploadController {
     public String singleSignature(Model model){
         AppUser appUser = new AppUser();
         model.addAttribute("appUser", appUser);
-        return "index";
+        return "single";
     }
 
 
@@ -74,6 +74,7 @@ public class FileUploadController {
         ),"Here's your new email signature");
         return "redirect:/single?success";
     }
+
 
     @GetMapping("/multi")
     public String listUploadedFiles(Model model) throws IOException {
