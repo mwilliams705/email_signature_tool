@@ -21,7 +21,7 @@
             <h2>Edit</h2>
         </div>
         <hr>
-        <p>Edit the values of your signature here. Make sure the logo image is 70px in height and width.&nbsp;</p>
+        <p>Edit the values of your signature here.&nbsp;</p>
         <hr>
         <form method="post" th:action="@{/createSignatureOnSingle}" th:object="${signature}">
 
@@ -51,7 +51,7 @@
                             <li class="nav-item"><a class="nav-link" href="/multi">Multi</a></li>
                             <li class="nav-item"><a class="nav-link open-sidebar" style="color: deeppink">Edit Your Signature Details</a></li>
 
-                        </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="#" style="background: var(--dark);">About</a></span>
+                        </ul><span class="navbar-text actions"> <a class="btn btn-light action-button" role="button" href="#" style="background: var(--dark);">How To</a></span>
                     </div>
                 </div>
             </nav>
@@ -60,6 +60,7 @@
 
                 <form method="post" th:action="@{/createSingle}" th:object="${appUser}" style="background: var(--light);">
                     <h2 class="text-center" style="color: var(--dark);">Send a signature</h2>
+                    <p class="text-center">Make sure to <a class=" open-sidebar" style="color: deeppink">edit your signature details</a> first!</p>
                     <div  class="form-group form-row"  th:if="${param.success}">
                         <div class="col-sm-3 label-column "></div>
                         <div class="alert alert-success col-sm-6 input-column" > Email Signature Sent! </div>

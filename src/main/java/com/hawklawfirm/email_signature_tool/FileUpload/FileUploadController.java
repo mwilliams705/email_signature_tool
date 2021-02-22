@@ -31,22 +31,24 @@ public class FileUploadController {
     private final StorageService storageService;
     private Signature signature;
 
-    private static final String HAWK_LOGO = "https://dl.dropboxusercontent.com/s/6xmiim6gs56b6bl/hlaw-email-sig.png";
+    private static final String PLACEHOLDER_LOGO = "https://via.placeholder.com/70\n" +
+            "\n" +
+            "C/O https://placeholder.com/";
 
     @Autowired
     public FileUploadController(StorageService storageService, EmailSender sender) {
         this.storageService = storageService;
         this.sender = sender;
         this.signature = new Signature(
-                HAWK_LOGO,
-                "HawkLaw ,PA",
-                "888.429.5529",
-                "www.Hawk.Law",
-                "",
-                "PO Box 5048",
-                "Spartanburg",
-                "SC",
-                "29304",
+                PLACEHOLDER_LOGO,
+                "Derp Co.",
+                "888.555.1234",
+                "www.Derp.com",
+                "35 Somewhere Blvd.",
+                "Suite 103",
+                "Topeka",
+                "KS",
+                "12345",
                 "#ff0000"
         );
 //                HawkLaw logo color #009749
