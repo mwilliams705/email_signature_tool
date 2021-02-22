@@ -54,6 +54,12 @@ public class FileUploadController {
 //                HawkLaw logo color #009749
     }
 
+    @GetMapping(path = "/")
+    public String homePage(){
+
+        return "index";
+    }
+
     @GetMapping("/single")
     public String singleSignature(Model model){
         Signature signature = new Signature();
