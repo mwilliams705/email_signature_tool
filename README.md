@@ -12,7 +12,7 @@ Make sure you have `maildev` installed. (Check using `maildev --version`)
 
 If not, install `maildev` using the node package manager (nodejs: https://nodejs.org/en/) 
  
-Install mail dev with `npm intall -g maildev`
+Install mail dev with `npm install -g maildev`
 
 Once installed test again with `maildev --version`
 
